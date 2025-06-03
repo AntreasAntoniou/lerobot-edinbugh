@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edinburgh LeRobot Hackathon - June 14-15, 2025</title>
+    <meta name="description" content="Join Edinburgh's LeRobot Hackathon June 14-15, 2025. Build AI-powered robots with HuggingFace's framework. 4 robots, 5 GPUs, expert mentors. Free entry!">
+    <meta property="og:title" content="Edinburgh LeRobot Hackathon - June 14-15, 2025">
+    <meta property="og:description" content="Be part of the AI robotics revolution. 40 spots available!">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200">
+    <meta property="og:url" content="https://lerobot-edinburgh.com">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #FFD21E 0%, #FFA500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <div id="particles-js"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-bold">
+                    <span class="gradient-text">LeRobot</span> Edinburgh
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#about" class="hover:text-yellow-400 transition">About</a>
+                    <a href="#why-join" class="hover:text-yellow-400 transition">Why Join</a>
+                    <a href="#schedule" class="hover:text-yellow-400 transition">Schedule</a>
+                    <a href="#venue" class="hover:text-yellow-400 transition">Venue</a>
+                    <a href="#organizers" class="hover:text-yellow-400 transition">Organizers</a>
+                    <a href="#faq" class="hover:text-yellow-400 transition">FAQ</a>
+                </div>
+                <a href="https://forms.gle/NP22nZ9knKCB2KS18" target="_blank" class="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition">
+                    Register Now
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4" data-aos="fade-up">
+                Edinburgh <span class="gradient-text">LeRobot</span> Hackathon
+            </h1>
+            <p class="text-xl md:text-2xl mb-4 text-gray-300" data-aos="fade-up" data-aos-delay="100">
+                Build the future of robotics with Hugging Face
+            </p>
+            <p class="text-lg md:text-xl mb-8 text-gray-400 italic" data-aos="fade-up" data-aos-delay="200">
+                "The ChatGPT moment of robotics could be just a few milestones away!"
+            </p>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-8" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-lg">
+                    <span class="font-semibold">📅 14-15 June 2025</span>
+                </div>
+                <div class="text-lg">
+                    <span class="font-semibold">📍 University of Edinburgh</span>
+                </div>
+            </div>
+
+            <!-- Countdown Timer -->
+            <div class="mb-12" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="text-2xl mb-4">Hackathon Starts In:</h3>
+                <div id="countdown" class="flex justify-center gap-4 text-center">
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <div class="text-3xl md:text-4xl font-bold gradient-text" id="days">00</div>
+                        <div class="text-sm text-gray-400">Days</div>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <div class="text-3xl md:text-4xl font-bold gradient-text" id="hours">00</div>
+                        <div class="text-sm text-gray-400">Hours</div>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <div class="text-3xl md:text-4xl font-bold gradient-text" id="minutes">00</div>
+                        <div class="text-sm text-gray-400">Minutes</div>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <div class="text-3xl md:text-4xl font-bold gradient-text" id="seconds">00</div>
+                        <div class="text-sm text-gray-400">Seconds</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col md:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="500">
+                <a href="https://forms.gle/NP22nZ9knKCB2KS18" target="_blank" class="bg-yellow-400 text-gray-900 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-yellow-300 transition transform hover:scale-105">
+                    Register Now - Limited to 40 Spots
+                </a>
+                <a href="https://discord.com/invite/s3KuuzsPFb" target="_blank" class="bg-gray-800 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-700 transition transform hover:scale-105">
+                    Join Discord
+                </a>
+                <a href="https://forms.gle/cnDGaeF5MY7ueUdz9" target="_blank" class="bg-gray-800 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-700 transition transform hover:scale-105">
+                    Find Teammates
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-800/50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12" data-aos="fade-up">
+                What is the <span class="gradient-text">LeRobot Hackathon?</span>
+            </h2>
+            <div class="max-w-4xl mx-auto">
+                <p class="text-lg mb-6 text-gray-300" data-aos="fade-up">
+                    Join the first-ever global LeRobot hackathon, happening simultaneously in 50+ cities worldwide! This is your chance to be part of the AI robotics revolution.
+                </p>
+                <p class="text-lg mb-6 text-gray-300" data-aos="fade-up" data-aos-delay="100">
+                    LeRobot is Hugging Face's new open-source robotics framework that makes training real-world robots as easy as training language models. With 13.9k GitHub stars and 100+ pretrained models, it's the most accessible robotics platform ever created.
+                </p>
+                <p class="text-lg mb-8 text-gray-300" data-aos="fade-up" data-aos-delay="200">
+                    Over 30 hours, you'll work in teams to build, train, and demonstrate creative robotic behaviors using state-of-the-art deep learning and reinforcement learning techniques. Whether you're a seasoned roboticist or completely new to the field, this hackathon is designed for everyone.
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="300">
+                    <a href="https://huggingface.co/lerobot" target="_blank" class="text-yellow-400 hover:text-yellow-300 transition">
+                        🤗 Explore LeRobot
+                    </a>
+                    <a href="https://github.com/huggingface/lerobot" target="_blank" class="text-yellow-400 hover:text-yellow-300 transition">
+                        📦 GitHub Repository
+                    </a>
+                    <a href="https://huggingface.co/LeRobot-worldwide-hackathon" target="_blank" class="text-yellow-400 hover:text-yellow-300 transition">
+                        🌍 Official Hackathon Page
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Join Section -->
+    <section id="why-join" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12" data-aos="fade-up">
+                Why Join <span class="gradient-text">Edinburgh's Node?</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition" data-aos="fade-up">
+                    <div class="text-4xl mb-4">🤖</div>
+                    <h3 class="text-xl font-semibold mb-2">4 LeRobot SO-101 Kits</h3>
+                    <p class="text-gray-400">Get hands-on with physical robots</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-4xl mb-4">⚡</div>
+                    <h3 class="text-xl font-semibold mb-2">5 High-Performance GPUs</h3>
+                    <p class="text-gray-400">Train models on-site with powerful hardware</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl mb-4">🧑‍🏫</div>
+                    <h3 class="text-xl font-semibold mb-2">Expert Mentorship</h3>
+                    <p class="text-gray-400">Learn from ML researchers Antreas Antoniou & Pavlos Andreadis</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-4xl mb-4">🏛️</div>
+                    <h3 class="text-xl font-semibold mb-2">Premium Venue</h3>
+                    <p class="text-gray-400">Work in UoE's state-of-the-art Informatics Forum</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition" data-aos="fade-up" data-aos-delay="400">
+                    <div class="text-4xl mb-4">🍕</div>
+                    <h3 class="text-xl font-semibold mb-2">Free Food & Drinks</h3>
+                    <p class="text-gray-400">Snacks, coffee, and lunch provided both days</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition" data-aos="fade-up" data-aos-delay="500">
+                    <div class="text-4xl mb-4">🌍</div>
+                    <h3 class="text-xl font-semibold mb-2">Global Community</h3>
+                    <p class="text-gray-400">Connect with 1,500+ participants worldwide</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition" data-aos="fade-up" data-aos-delay="600">
+                    <div class="text-4xl mb-4">🏆</div>
+                    <h3 class="text-xl font-semibold mb-2">Win Recognition</h3>
+                    <p class="text-gray-400">Compete for global prizes and HuggingFace features</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition" data-aos="fade-up" data-aos-delay="700">
+                    <div class="text-4xl mb-4">💰</div>
+                    <h3 class="text-xl font-semibold mb-2">Zero Cost</h3>
+                    <p class="text-gray-400">Completely free thanks to our sponsors</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="py-20 bg-gray-800/50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12" data-aos="fade-up">
+                <span class="gradient-text">48 Hours</span> of Innovation
+            </h2>
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                <!-- Saturday -->
+                <div data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-6 text-yellow-400">Saturday, June 14, 2025</h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">09:00</span>
+                            <span>Registration & Welcome Coffee</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">09:30</span>
+                            <span>Opening Ceremony (Global Livestream)</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">10:00</span>
+                            <span>LeRobot Framework Workshop</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">11:30</span>
+                            <span>Team Formation</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">12:00</span>
+                            <span class="font-semibold text-yellow-400">Hacking Begins!</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">13:00</span>
+                            <span>Lunch Break</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">14:00</span>
+                            <span>Robot Assembly Workshop</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">16:00</span>
+                            <span>Reinforcement Learning Tutorial</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">18:00</span>
+                            <span>Dinner Break (on your own)</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">19:00</span>
+                            <span>Evening Hacking Session</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">00:00</span>
+                            <span>Venue Closes (overnight access available)</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sunday -->
+                <div data-aos="fade-left">
+                    <h3 class="text-2xl font-bold mb-6 text-yellow-400">Sunday, June 15, 2025</h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">09:00</span>
+                            <span>Venue Reopens & Breakfast</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">10:00</span>
+                            <span>Hacking Continues</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">12:00</span>
+                            <span>Lunch Break</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">13:00</span>
+                            <span>Final Push</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">15:00</span>
+                            <span class="font-semibold text-yellow-400">Project Submission Deadline</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">15:30</span>
+                            <span>Demo Preparation</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">16:00</span>
+                            <span>Team Presentations</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">17:00</span>
+                            <span>Global Winner Announcement</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">17:30</span>
+                            <span>Local Awards & Closing</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-gray-400 font-mono">18:00</span>
+                            <span>Event Ends</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venue Section -->
+    <section id="venue" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12" data-aos="fade-up">
+                <span class="gradient-text">World-Class</span> Facilities
+            </h2>
+            <div class="max-w-4xl mx-auto">
+                <p class="text-lg mb-8 text-gray-300 text-center" data-aos="fade-up">
+                    The hackathon will be held at the University of Edinburgh's Informatics Forum, one of the UK's premier computer science facilities. We'll be using rooms G.07 and G.03, plus additional breakout spaces.
+                </p>
+                <div class="bg-gray-800 rounded-lg p-6 mb-8" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-semibold mb-4">📍 Address</h3>
+                    <p class="text-gray-300">
+                        Informatics Forum<br>
+                        10 Crichton Street<br>
+                        Edinburgh EH8 9AB<br>
+                        Scotland, UK
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4 mb-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <p class="text-gray-300">✅ High-speed WiFi throughout</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <p class="text-gray-300">✅ Abundant power outlets</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <p class="text-gray-300">✅ Comfortable working spaces</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <p class="text-gray-300">✅ Kitchen facilities</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <p class="text-gray-300">✅ 24/7 access for overnight teams</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <p class="text-gray-300">✅ Breakout rooms available</p>
+                    </div>
+                </div>
+                <!-- Google Maps Embed -->
+                <div class="rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2234.2749999999997!2d-3.1892!3d55.9445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887c78385c7685d%3A0x6f9d3da4d39209ee!2sInformatics%20Forum%2C%20University%20of%20Edinburgh!5e0!3m2!1sen!2suk!4v1701234567890!5m2!1sen!2suk" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organizers Section -->
+    <section id="organizers" class="py-20 bg-gray-800/50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12" data-aos="fade-up">
+                Learn from the <span class="gradient-text">Best</span>
+            </h2>
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-800 rounded-lg p-8" data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-4 text-yellow-400">Antreas Antoniou</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• Senior ML Research Scientist at Pieces for Developers</li>
+                        <li>• Former Research Associate at University of Edinburgh's BayesWatch group</li>
+                        <li>• PhD in Meta Learning for Few-Shot Learning</li>
+                        <li>• Expert in multi-modal learning and deep learning</li>
+                        <li>• Providing all LeRobot kits and GPU infrastructure</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-8" data-aos="fade-left">
+                    <h3 class="text-2xl font-bold mb-4 text-yellow-400">Pavlos Andreadis</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• University of Edinburgh staff member</li>
+                        <li>• PhD in Machine Learning and Reinforcement Learning</li>
+                        <li>• Venue coordinator and safety officer</li>
+                        <li>• Extensive hands-on robotics experience</li>
+                        <li>• Your go-to for technical support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12" data-aos="fade-up">
+                Frequently Asked <span class="gradient-text">Questions</span>
+            </h2>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <div class="bg-gray-800 rounded-lg p-6" data-aos="fade-up">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">Who can participate?</h3>
+                    <p class="text-gray-300">Anyone interested in robotics and AI! We welcome students, researchers, industry professionals, and hobbyists. Basic Python knowledge is helpful but not required.</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">Do I need to bring a team?</h3>
+                    <p class="text-gray-300">No! You can register solo and we'll help you find teammates on the day, or come with a pre-formed team. We recommend teams of 3-5 people.</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">What should I bring?</h3>
+                    <p class="text-gray-300">Just your laptop and enthusiasm! We provide all robots, GPUs, and infrastructure. Bring a charger and any personal items for the long hacking session.</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">Is food provided?</h3>
+                    <p class="text-gray-300">Yes! We'll provide snacks, coffee, tea throughout, plus lunch on both days. Dinner on Saturday is on your own (many great options nearby).</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">Can I stay overnight?</h3>
+                    <p class="text-gray-300">The venue officially closes at midnight, but dedicated teams can arrange overnight access with organizers.</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6" data-aos="fade-up" data-aos-delay="500">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">What are the prizes?</h3>
+                    <p class="text-gray-300">Global winners get featured on Hugging Face, potential internship opportunities, and LeRobot swag. Local winners receive recognition and special prizes TBA.</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6" data-aos="fade-up" data-aos-delay="600">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">Is this really free?</h3>
+                    <p class="text-gray-300">Yes! Thanks to Hugging Face and our organizers, there's no registration fee.</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6" data-aos="fade-up" data-aos-delay="700">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">What's the submission format?</h3>
+                    <p class="text-gray-300">Teams submit: (1) a dataset recorded during the hackathon, and (2) a video (max 2 mins) explaining your project.</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6" data-aos="fade-up" data-aos-delay="800">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">How many robots will we have access to?</h3>
+                    <p class="text-gray-300">We have 4 LeRobot SO-101 kits and 5 GPUs. Teams will coordinate to share resources throughout the event.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-gray-900 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8">
+                <p class="text-xl mb-4 text-gray-300">Part of the LeRobot Worldwide Hackathon</p>
+                <p class="text-lg text-gray-400">50+ cities building the future together</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 mb-8">
+                <a href="https://forms.gle/NP22nZ9knKCB2KS18" target="_blank" class="text-yellow-400 hover:text-yellow-300 transition">
+                    📝 Register
+                </a>
+                <a href="https://discord.com/invite/s3KuuzsPFb" target="_blank" class="text-yellow-400 hover:text-yellow-300 transition">
+                    💬 Discord
+                </a>
+                <a href="https://forms.gle/cnDGaeF5MY7ueUdz9" target="_blank" class="text-yellow-400 hover:text-yellow-300 transition">
+                    👥 Find Teammates
+                </a>
+                <a href="https://huggingface.co/lerobot" target="_blank" class="text-yellow-400 hover:text-yellow-300 transition">
+                    🤗 LeRobot HuggingFace
+                </a>
+                <a href="https://github.com/huggingface/lerobot" target="_blank" class="text-yellow-400 hover:text-yellow-300 transition">
+                    📦 LeRobot GitHub
+                </a>
+            </div>
+            <div class="text-center text-gray-500">
+                <p>&copy; 2025 Edinburgh LeRobot Hackathon. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Countdown Timer
+        function updateCountdown() {
+            const hackathonDate = new Date('June 14, 2025 09:00:00 GMT+0100').getTime();
+            const now = new Date().getTime();
+            const distance = hackathonDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = '<div class="text-3xl font-bold gradient-text">The Hackathon has started!</div>';
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Particles.js configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#FFD21E'
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.5,
+                    random: false
+                },
+                size: {
+                    value: 3,
+                    random: true
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#FFD21E',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 0.5
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
