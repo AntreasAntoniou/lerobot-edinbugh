@@ -32,10 +32,12 @@
     <style>
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden; /* Prevent horizontal scrolling on html element */
         }
         body {
             font-family: 'Inter', sans-serif;
             overflow-x: hidden; /* Prevent horizontal scrolling */
+            overflow-wrap: break-word; /* Help break long strings */
         }
         #particles-js {
             position: fixed;
@@ -44,6 +46,7 @@
             top: 0;
             left: 0;
             z-index: -1;
+            overflow: hidden; /* Ensure canvas doesn't make this div overflow */
         }
         .gradient-text {
             background: linear-gradient(135deg, #FFD21E 0%, #FFA500 100%);
