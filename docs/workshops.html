@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshops & Materials - LeRobot Edinburgh</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #FFD21E 0%, #FFA500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="../index.html" class="text-xl font-bold hover:text-yellow-400 transition">
+                    &larr; Back to Main Site
+                </a>
+                <a href="https://www.eventbrite.com/e/edinburgh-lerobot-hackathon-informatics-forum-tickets-1394975602579?utm-campaign=social&utm-content=attendeeshare&utm-medium=discovery&utm-term=listing&utm-source=cp&aff=ebdsshcopyurl" target="_blank" class="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition">
+                    Get Tickets
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-24">
+        <h1 class="text-5xl md:text-6xl font-bold text-center gradient-text mt-12 mb-12">Workshop Materials</h1>
+
+        <!-- Workshop Slides Section -->
+        <section class="mb-16">
+            <h2 class="text-4xl font-bold mb-6">Workshop Slides</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Workshop 1 -->
+                <a href="workshop_1_slides.html" class="block p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="text-2xl font-semibold text-yellow-400">1. Robot Setup & Control</h3>
+                    <p class="text-gray-300 mt-2">Learn to find ports, calibrate your arms, and take direct control via teleoperation.</p>
+                </a>
+                <!-- Workshop 2 -->
+                <a href="workshop_2_slides.html" class="block p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="text-2xl font-semibold text-yellow-400">2. Prompt Engineering</h3>
+                    <p class="text-gray-300 mt-2">Discover how to write effective text prompts to command Vision-Language-Action models like SmolVLA.</p>
+                </a>
+                <!-- Workshop 3 -->
+                <a href="workshop_3_slides.html" class="block p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="text-2xl font-semibold text-yellow-400">3. Imitation Learning</h3>
+                    <p class="text-gray-300 mt-2">Teach the robot by showing it what to do. The record, visualize, and train workflow.</p>
+                </a>
+                <!-- Workshop 4 -->
+                <a href="workshop_4_slides.html" class="block p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="text-2xl font-semibold text-yellow-400">4. Reinforcement Learning</h3>
+                    <p class="text-gray-300 mt-2">Go beyond imitation. Fine-tune your policies with the HIL-SERL workflow.</p>
+                </a>
+                <!-- Workshop 5 -->
+                <a href="workshop_5_slides.html" class="block p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="text-2xl font-semibold text-yellow-400">5. Hacker's Toolkit</h3>
+                    <p class="text-gray-300 mt-2">Learn to use AI assistants like Cursor, ChatGPT, and Gemini to accelerate your work.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Key Resources Section -->
+        <section class="mb-16">
+            <h2 class="text-4xl font-bold mb-6">Key Links & Official Docs</h2>
+            <div class="space-y-4 text-lg">
+                <a href="https://huggingface.co/docs/lerobot/index" target="_blank" class="block p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="font-semibold text-yellow-400">LeRobot Official Documentation</h3>
+                    <p class="text-sm text-gray-400">Your primary source of truth for all commands and concepts.</p>
+                </a>
+                <a href="https://github.com/huggingface/lerobot" target="_blank" class="block p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="font-semibold text-yellow-400">LeRobot GitHub Repository</h3>
+                    <p class="text-sm text-gray-400">The source code, issues, and latest updates for the framework.</p>
+                </a>
+                <a href="https://huggingface.co/blog/smolvla" target="_blank" class="block p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="font-semibold text-yellow-400">SmolVLA Blog Post</h3>
+                    <p class="text-sm text-gray-400">Learn about the efficient Vision-Language-Action model you'll be using.</p>
+                </a>
+                <a href="https://huggingface.co/papers/2503.14734" target="_blank" class="block p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="font-semibold text-yellow-400">Project GR00T Paper</h3>
+                    <p class="text-sm text-gray-400">Read about the state-of-the-art foundation models for humanoid robots.</p>
+                </a>
+                <a href="https://github.com/TheRobotStudio/SO-ARM100" target="_blank" class="block p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="font-semibold text-yellow-400">SO-ARM100/101 Hardware Repository</h3>
+                    <p class="text-sm text-gray-400">Bill of materials, 3D printing files, and assembly guides for the robot arms.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Core Technologies & Tools Section -->
+        <section>
+            <h2 class="text-4xl font-bold mb-6">Core Technologies & Tools</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="https://pytorch.org/get-started/locally/" target="_blank" class="block p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="font-semibold text-yellow-400">PyTorch</h3>
+                    <p class="text-sm text-gray-400">The core deep learning library for LeRobot.</p>
+                </a>
+                <a href="https://huggingface.co/" target="_blank" class="block p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="font-semibold text-yellow-400">Hugging Face Hub</h3>
+                    <p class="text-sm text-gray-400">Find models, datasets, and more.</p>
+                </a>
+                <a href="https://docs.conda.io/projects/miniconda/en/latest/" target="_blank" class="block p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="font-semibold text-yellow-400">Miniconda</h3>
+                    <p class="text-sm text-gray-400">Recommended for managing your Python environment.</p>
+                </a>
+                <a href="https://cursor.sh/" target="_blank" class="block p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="font-semibold text-yellow-400">Cursor</h3>
+                    <p class="text-sm text-gray-400">The AI-first code editor from the toolkit session.</p>
+                </a>
+                <a href="https://chat.openai.com/" target="_blank" class="block p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="font-semibold text-yellow-400">ChatGPT</h3>
+                    <p class="text-sm text-gray-400">Web UI for general-purpose AI assistance.</p>
+                </a>
+                <a href="https://gemini.google.com/" target="_blank" class="block p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <h3 class="font-semibold text-yellow-400">Gemini</h3>
+                    <p class="text-sm text-gray-400">Web UI for general-purpose AI assistance.</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html> 

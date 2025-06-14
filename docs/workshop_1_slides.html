@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop 1: Robot Setup & Control - LeRobot Edinburgh</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1a1a1a; color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+        .slide-container { width: 90%; height: 90%; max-width: 1200px; max-height: 800px; position: relative; border: 1px solid #333; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .slide { width: 100%; height: 100%; padding: 4rem; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: absolute; top: 0; left: 0; }
+        .slide.active { display: flex; }
+        .gradient-text { background: linear-gradient(135deg, #FFD21E 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .navigation { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; gap: 1rem; align-items: center; }
+        .nav-button { background-color: #333; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; user-select: none; transition: background-color 0.2s; }
+        .nav-button:hover { background-color: #444; }
+        .slide-counter { color: #888; }
+        code { background-color: #2a2a2a; color: #f8f8f2; padding: 0.2em 0.4em; margin: 0; font-size: 0.85em; border-radius: 3px; }
+        pre { background-color: #2a2a2a; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; text-align: left; width: 100%; max-width: 50rem; }
+        pre code { padding: 0; background: none; }
+        ul, ol { list-style-position: inside; }
+        .content-box { text-align: left; width: 100%; max-width: 50rem; }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <h1 class="text-6xl font-bold gradient-text">Workshop 1: Robot Setup & Control</h1>
+            <p class="text-3xl mt-4 text-gray-300">From Box to Action</p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-8">What We'll Cover Today</h2>
+            <ul class="text-3xl space-y-4 text-left">
+                <li>➔ The Documentation: Your Best Friend</li>
+                <li>➔ Finding Your Robot's Port</li>
+                <li>➔ Calibration: The First, Crucial Step</li>
+                <li>➔ Teleoperation: Taking Direct Control</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-6">Your Most Important Tab</h2>
+            <p class="text-2xl mb-4">This is your single source of truth. Keep it open.</p>
+            <pre><code class="text-3xl">https://huggingface.co/docs/lerobot/index</code></pre>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold gradient-text mb-6">Step 1: Finding Your Robot's Port</h2>
+            <div class="content-box">
+                <p class="text-xl mb-4"><strong>Goal:</strong> Identify the unique USB port for *each* arm.</p>
+                <pre><code>python lerobot/find_port.py</code></pre>
+                <h3 class="font-semibold text-2xl mt-6 mb-2">The Process (It's Interactive!):</h3>
+                <ol class="list-decimal text-xl space-y-2">
+                    <li>The script lists all connected serial ports.</li>
+                    <li>It asks you to <strong>unplug one arm</strong> and press Enter.</li>
+                    <li>The script identifies which port disappeared. <strong>That's the port for that arm!</strong></li>
+                    <li>Reconnect the arm and repeat for the other one.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">What is Calibration?</h2>
+            <p class="text-2xl max-w-4xl">It teaches the software the physical limits and properties of your specific robot arms.</p>
+            <p class="text-3xl mt-8 p-4 bg-yellow-900/30 border-l-4 border-yellow-400 rounded">
+                <strong>CRUCIAL:</strong> Without calibration, movements will be inaccurate, unpredictable, and potentially unsafe.
+            </p>
+        </div>
+        
+        <!-- Slide 6 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold gradient-text mb-4">Calibrating the Follower Arm (The Robot)</h2>
+            <div class="content-box">
+                <pre><code>python -m lerobot.calibrate \
+       --robot.type=so101_follower \
+       --robot.port=YOUR_FOLLOWER_PORT \
+       --robot.id='your-robot-name'</code></pre>
+                <ul class="text-lg mt-4 space-y-2">
+                    <li><code>--robot.type</code>: Specifies the kind of robot.</li>
+                    <li><code>--robot.port</code>: The port you just found.</li>
+                    <li><code>--robot.id</code>: A unique name to save the calibration file.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Slide 7 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold gradient-text mb-4">Calibrating the Leader Arm (The Controller)</h2>
+            <div class="content-box">
+                <pre><code>python -m lerobot.calibrate \
+       --teleop.type=so101_leader \
+       --teleop.port=YOUR_LEADER_PORT \
+       --teleop.id='your-controller-name'</code></pre>
+                <ul class="text-lg mt-4 space-y-2">
+                    <li><code>--teleop</code>: This prefix signifies this is the teleoperation/controller device.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Slide 8 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">Step 3: Taking Direct Control</h2>
+            <p class="text-3xl mb-4">This is how you'll record data for imitation learning.</p>
+            <p class="text-xl text-gray-400">For more details, see the 'Imitation Learning for Robots' tutorial in the docs.</p>
+        </div>
+        
+        <!-- Slide 9 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold gradient-text mb-4">The Teleoperation Command</h2>
+            <div class="content-box">
+                <pre><code>python -m lerobot.teleoperate \
+       --robot.type=so101_follower \
+       --robot.port=YOUR_FOLLOWER_PORT \
+       --robot.id=your-robot-name \
+       --teleop.type=so101_leader \
+       --teleop.port=YOUR_LEADER_PORT \
+       --teleop.id=your-controller-name</code></pre>
+                <p class="text-xl mt-4">Note how we use the unique `id`s we chose during calibration.</p>
+            </div>
+        </div>
+
+        <!-- Slide 10 -->
+        <div class="slide">
+            <h2 class="text-6xl font-bold gradient-text">Live Demo Time!</h2>
+            <p class="text-2xl mt-4 text-gray-300">Let's run through `find_port`, `calibrate`, and `teleoperate` live.</p>
+        </div>
+
+        <!-- Slide 11 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold gradient-text mb-8">Quick Troubleshooting</h2>
+            <div class="content-box text-2xl space-y-4">
+                <ul>
+                    <li><strong class="text-yellow-400">"Can't find port?"</strong> &rarr; Make sure the robot is plugged in and turned on. Run `find_port.py` again.</li>
+                    <li><strong class="text-yellow-400">"Calibration fails?"</strong> &rarr; Check your IDs and ports. Ensure the robot has clear space to move.</li>
+                    <li><strong class="text-yellow-400">"Movement is jerky?"</strong> &rarr; You might need to re-calibrate. Follow all on-screen steps carefully.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Slide 12 -->
+        <div class="slide">
+            <h2 class="text-6xl font-bold gradient-text">Your Turn!</h2>
+            <p class="text-3xl mt-4 text-gray-300">Find your ports, calibrate your arms, and try teleoperation. Mentors are here to help.</p>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation">
+            <div class="nav-button" id="prev">Prev</div>
+            <div class="slide-counter">1 / 12</div>
+            <div class="nav-button" id="next">Next</div>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        const slideCounter = document.querySelector('.slide-counter');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        function updateCounter() {
+            slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            updateCounter();
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        nextButton.addEventListener('click', nextSlide);
+        prevButton.addEventListener('click', prevSlide);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        showSlide(currentSlide);
+    </script>
+</body>
+</html> 

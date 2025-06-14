@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker's Toolkit - LeRobot Edinburgh</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 90%;
+            height: 90%;
+            max-width: 1200px;
+            max-height: 800px;
+            position: relative;
+            border: 1px solid #333;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .slide {
+            width: 100%;
+            height: 100%;
+            padding: 4rem;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .slide.active {
+            display: flex;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #FFD21E 0%, #FFA500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .navigation {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .nav-button {
+            background-color: #333;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s;
+        }
+        .nav-button:hover {
+            background-color: #444;
+        }
+        .slide-counter {
+            color: #888;
+        }
+        ul, ol {
+            text-align: left;
+            margin-left: 2rem;
+        }
+        .text-left-align {
+            text-align: left;
+            width: 100%;
+            max-width: 50rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <h1 class="text-6xl font-bold gradient-text">Hacker's Toolkit: AI Assistants</h1>
+            <p class="text-3xl mt-4 text-gray-300">Code Faster, Debug Smarter</p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-8">Your AI-Powered Toolkit</h2>
+            <ul class="text-3xl space-y-4">
+                <li>Cursor: The AI-First Code Editor</li>
+                <li>Web UIs: ChatGPT & Gemini</li>
+                <li>Best Practices: How to Ask for Help</li>
+            </ul>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">Tool 1: Cursor</h2>
+            <p class="text-3xl max-w-4xl mb-6">Your AI Pair Programmer</p>
+            <div class="text-left-align text-xl space-y-4">
+                <p><strong>What it is:</strong> A code editor with AI built directly into it. It understands your entire codebase.</p>
+                <p><strong>Key Feature:</strong> Highlight code and ask "What does this do?" or "Why is this crashing?". Or ask it to generate/refactor code in place.</p>
+                <p><strong>LeRobot Use Case:</strong> Highlight a `lerobot.calibrate` command and ask: <br><em>`"Explain what each of these arguments does."`</em></p>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">Tool 2: ChatGPT & Gemini</h2>
+            <p class="text-3xl max-w-4xl mb-6">Your Go-To for Debugging & Concepts</p>
+            <div class="text-left-align text-xl space-y-4">
+                <p><strong>What they are:</strong> Powerful, general-purpose conversational AIs.</p>
+                <p><strong>Key Feature:</strong> Excellent for explaining error messages, high-level concepts, and generating boilerplate code.</p>
+                <p><strong>LeRobot Use Case:</strong> Paste a full `train.py` error and ask: <br><em>`"I got this error running a LeRobot training script. What is the most likely cause?"`</em></p>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">How to Get Good Answers</h2>
+            <p class="text-3xl max-w-4xl mb-6">The Golden Rule: Provide <strong>Context</strong></p>
+            <div class="grid grid-cols-2 gap-8 w-full max-w-5xl">
+                <div class="p-6 bg-red-900/30 border-l-4 border-red-500 rounded text-left">
+                    <h3 class="font-bold text-2xl mb-2">Bad Prompt</h3>
+                    <p class="text-2xl">"My code is broken."</p>
+                </div>
+                <div class="p-6 bg-green-900/30 border-l-4 border-green-500 rounded text-left">
+                    <h3 class="font-bold text-2xl mb-2">Good Prompt</h3>
+                    <p class="text-lg">"I'm running `lerobot.teleoperate` with this command: `...`. I get this full error: `...`. What should I check first?"</p>
+                </div>
+            </div>
+            <p class="mt-8 text-2xl">Don't trust blindly! Always test the code it gives you.</p>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide">
+            <h2 class="text-6xl font-bold gradient-text">You Are Now Ready!</h2>
+            <p class="text-3xl mt-4 text-gray-300">You have the hardware, the software knowledge, and the AI tools.</p>
+            <p class="mt-8 text-4xl text-yellow-400 font-bold">It's time to form teams and start building!</p>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation">
+            <div class="nav-button" id="prev">Prev</div>
+            <div class="slide-counter"><span id="current-slide">1</span> / 6</div>
+            <div class="nav-button" id="next">Next</div>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        const currentSlideSpan = document.getElementById('current-slide');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            currentSlideSpan.textContent = index + 1;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        nextButton.addEventListener('click', nextSlide);
+        prevButton.addEventListener('click', prevSlide);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+        
+        // Initialize
+        document.querySelector('.slide-counter').textContent = `1 / ${totalSlides}`;
+        currentSlideSpan.textContent = '1';
+        showSlide(currentSlide);
+    </script>
+</body>
+</html> 

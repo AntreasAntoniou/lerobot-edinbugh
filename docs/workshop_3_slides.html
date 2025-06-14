@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop 3: Imitation Learning - LeRobot Edinburgh</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1a1a1a; color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+        .slide-container { width: 90%; height: 90%; max-width: 1200px; max-height: 800px; position: relative; border: 1px solid #333; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .slide { width: 100%; height: 100%; padding: 4rem; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: absolute; top: 0; left: 0; }
+        .slide.active { display: flex; }
+        .gradient-text { background: linear-gradient(135deg, #FFD21E 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .navigation { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; gap: 1rem; align-items: center; }
+        .nav-button { background-color: #333; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; user-select: none; transition: background-color 0.2s; }
+        .nav-button:hover { background-color: #444; }
+        .slide-counter { color: #888; }
+        pre { background-color: #2a2a2a; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; text-align: left; width: 100%; max-width: 50rem; }
+        ul, ol { list-style-position: inside; }
+        .content-box { text-align: left; width: 100%; max-width: 50rem; }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <h1 class="text-6xl font-bold gradient-text">Workshop 3: Learning by Watching</h1>
+            <p class="text-3xl mt-4 text-gray-300">Creating Datasets with Imitation Learning</p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-8">What We'll Cover</h2>
+            <ul class="text-3xl space-y-4 text-left">
+                <li>➔ The Core Idea: Teaching by Showing</li>
+                <li>➔ What is a Robotics Dataset?</li>
+                <li>➔ Step 1: The `record` Command</li>
+                <li>➔ Crucial Step: What Makes a *Good* Dataset?</li>
+                <li>➔ Step 2: Visualizing Your Data with `rerun`</li>
+                <li>➔ Step 3: Training a Policy with `train.py`</li>
+            </ul>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">The Core Idea: Teaching by Showing</h2>
+            <p class="text-3xl mb-8">If you can do it, you can teach it.</p>
+            <ol class="text-2xl space-y-4 text-left max-w-3xl">
+                <li><strong>1. You perform a task</strong> using the teleoperation controller.</li>
+                <li><strong>2. The robot records</strong> everything it "sees" (camera images) and every "action" you command.</li>
+                <li><strong>3. A neural network learns</strong> to map what it sees to the action you took.</li>
+            </ol>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">The Robot's Memory</h2>
+            <div class="content-box text-2xl space-y-4">
+                <p><strong class="text-yellow-400">Dataset</strong> = A collection of <strong>Episodes</strong></p>
+                <p><strong class="text-yellow-400">Episode</strong> = A single, complete demonstration of a task</p>
+                <p><strong class="text-yellow-400">Frame</strong> = A snapshot in time, containing:</p>
+                <ul class="list-disc ml-10 text-xl">
+                    <li>`Observations`: What the robot saw (camera images, joint positions).</li>
+                    <li>`Action`: The command you sent at that instant.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold gradient-text mb-4">Step 1: Recording Your Demonstrations</h2>
+            <div class="content-box">
+                <p class="text-xl mb-4">Use your teleoperation skills to create a dataset.</p>
+                <pre><code>python -m lerobot.record \
+       # ... robot/teleop args ...
+       --dataset.repo_id="your-hf-username/my-awesome-dataset" \
+       --dataset.num_episodes=10</code></pre>
+                <p class="text-xl mt-4">This combines teleoperation with saving data locally and to the Hugging Face Hub.</p>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">CRITICAL STEP: Garbage In, Garbage Out</h2>
+            <p class="text-2xl max-w-4xl mb-6">Your trained model will only be as good as your data.</p>
+            <div class="content-box text-xl space-y-3">
+                <p>✅ <strong class="text-yellow-400">Consistency:</strong> Perform the task the same way each time.</p>
+                <p>✅ <strong class="text-yellow-400">Variety:</strong> Show the robot different starting positions for objects.</p>
+                <p>✅ <strong class="text-yellow-400">Clarity:</strong> Make sure the object and gripper are clearly visible to the cameras.</p>
+                <p>✅ <strong class="text-yellow-400">Quantity:</strong> Aim for 50+ episodes for a simple task. 10 is often not enough.</p>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold gradient-text mb-4">Step 2: Check Your Work with `rerun`</h2>
+             <div class="content-box">
+                <p class="text-xl mb-4">Before you train, look at your data to see if it's good.</p>
+                <pre><code>python lerobot/scripts/visualize_dataset.py \
+       --repo-id "your-hf-username/my-awesome-dataset"</code></pre>
+                <p class="text-xl mt-4">This opens a `rerun.io` window where you can scrub through your episodes frame-by-frame. It's an essential debugging tool!</p>
+            </div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="slide">
+            <h2 class="text-6xl font-bold gradient-text">Live Demo</h2>
+            <p class="text-3xl mt-4 text-gray-300">Record & Visualize</p>
+            <ol class="text-2xl space-y-2 mt-6 text-left max-w-2xl">
+                <li>1. Instructor will teleoperate the robot to perform a simple task.</li>
+                <li>2. Use `lerobot.record` to save 3-5 episodes.</li>
+                <li>3. Immediately use `visualize_dataset.py` to show the audience what was recorded.</li>
+            </ol>
+        </div>
+        
+        <!-- Slide 9 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold gradient-text mb-4">Step 3: Training Your Policy</h2>
+            <div class="content-box">
+                <p class="text-xl mb-4">Use your high-quality, verified dataset to train a policy.</p>
+                <pre><code>python lerobot/scripts/train.py \
+  --dataset.repo_id="your-hf-username/my-awesome-dataset" \
+  --policy.type=act \
+  --output_dir=outputs/my-first-training-run</code></pre>
+                <p class="text-xl mt-4">This is **Supervised Learning**: The model learns "Given this image, output this command."</p>
+            </div>
+        </div>
+        
+        <!-- Slide 10 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">Watching it Learn</h2>
+            <p class="text-2xl max-w-4xl">Use `--wandb.enable=true` to see live graphs in Weights & Biases.</p>
+            <p class="text-3xl mt-8 p-4 bg-yellow-900/30 border-l-4 border-yellow-400 rounded">
+                The most important graph is the <strong>loss curve</strong>. You want to see it go down over time.
+            </p>
+        </div>
+        
+        <!-- Slide 11 -->
+        <div class="slide">
+            <h2 class="text-6xl font-bold gradient-text">Q&A</h2>
+            <p class="text-3xl mt-4 text-gray-300">Any questions about the imitation learning workflow?</p>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation">
+            <div class="nav-button" id="prev">Prev</div>
+            <div class="slide-counter">1 / 11</div>
+            <div class="nav-button" id="next">Next</div>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        const slideCounter = document.querySelector('.slide-counter');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        function updateCounter() { slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`; }
+        function showSlide(index) { slides.forEach((slide, i) => slide.classList.toggle('active', i === index)); updateCounter(); }
+        function nextSlide() { currentSlide = (currentSlide + 1) % totalSlides; showSlide(currentSlide); }
+        function prevSlide() { currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; showSlide(currentSlide); }
+
+        nextButton.addEventListener('click', nextSlide);
+        prevButton.addEventListener('click', prevSlide);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        showSlide(currentSlide);
+    </script>
+</body>
+</html> 

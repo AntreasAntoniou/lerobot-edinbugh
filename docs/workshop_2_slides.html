@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop 2: Prompt Engineering LeRobot - LeRobot Edinburgh</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1a1a1a; color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+        .slide-container { width: 90%; height: 90%; max-width: 1200px; max-height: 800px; position: relative; border: 1px solid #333; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .slide { width: 100%; height: 100%; padding: 4rem; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: absolute; top: 0; left: 0; }
+        .slide.active { display: flex; }
+        .gradient-text { background: linear-gradient(135deg, #FFD21E 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .navigation { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; gap: 1rem; align-items: center; }
+        .nav-button { background-color: #333; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; user-select: none; transition: background-color 0.2s; }
+        .nav-button:hover { background-color: #444; }
+        .slide-counter { color: #888; }
+        ul, ol { list-style-position: inside; }
+        .content-box { text-align: left; width: 100%; max-width: 50rem; }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <h1 class="text-6xl font-bold gradient-text">Workshop 2: Prompt Engineering LeRobot</h1>
+            <p class="text-3xl mt-4 text-gray-300">Turning Human Intent into Machine Action</p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-8">What We'll Cover</h2>
+            <ul class="text-3xl space-y-4 text-left">
+                <li>➔ Why Prompting? The "Language" in Vision-Language-Action</li>
+                <li>➔ Anatomy of a Good Prompt</li>
+                <li>➔ Examples: Good vs. Bad Prompts</li>
+                <li>➔ Live Demo: Controlling a Robot with Your Words</li>
+                <li>➔ Advanced Technique: Chain-of-Thought</li>
+            </ul>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">Why Prompting?</h2>
+            <div class="content-box">
+                <p class="text-2xl mb-6">Our robot uses a model called <strong>SmolVLA</strong>. It combines:</p>
+                <ul class="text-3xl space-y-4">
+                    <li><strong class="text-yellow-400">Vision:</strong> What the robot sees from its cameras.</li>
+                    <li><strong class="text-yellow-400">Language:</strong> Your text instruction (the prompt).</li>
+                    <li><strong class="text-yellow-400">Action:</strong> The robot's movement.</li>
+                </ul>
+                <p class="text-xl mt-6">Your prompt provides the critical <strong>context</strong> for which action to choose.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">Meet SmolVLA</h2>
+            <div class="content-box text-2xl">
+                <p class="mb-4">Source: <a href="https://huggingface.co/blog/smolvla" target="_blank" class="text-yellow-400 underline">huggingface.co/blog/smolvla</a></p>
+                <ul class="list-disc space-y-3">
+                    <li>A <strong>compact (450M)</strong>, open-source VLA model.</li>
+                    <li>Trained on <strong>community-shared datasets</strong>.</li>
+                    <li>Designed for <strong>efficiency</strong> on consumer hardware.</li>
+                    <li>Uses an <strong>asynchronous inference</strong> stack for faster, more responsive actions.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-8">The Three Keys to a Good Prompt</h2>
+            <div class="content-box text-2xl space-y-6">
+                <div>
+                    <h3 class="font-bold text-3xl text-yellow-400">1. Be Specific</h3>
+                    <p>Name the target object precisely. <br><em class="text-gray-400">Instead of "the block", use "the small red lego block".</em></p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-3xl text-yellow-400">2. Be Clear</h3>
+                    <p>Use simple, direct language. Avoid ambiguity.<br><em class="text-gray-400">Instead of "deal with it", use "pick it up".</em></p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-3xl text-yellow-400">3. Be Actionable</h3>
+                    <p>Use verbs that describe physical movements.<br><em class="text-gray-400">Good verbs: "push", "pick up", "place", "move to", "slide".</em></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold gradient-text mb-6">Example 1: Object Specificity</h2>
+            <p class="text-xl mb-4"><strong>Task:</strong> Move a red cube into a blue bowl. A yellow ring is also on the table.</p>
+            <div class="grid grid-cols-2 gap-8 w-full max-w-5xl">
+                <div class="p-6 bg-red-900/30 border-l-4 border-red-500 rounded text-left">
+                    <h3 class="font-bold text-2xl mb-2">Bad Prompt</h3>
+                    <p class="text-2xl">"put the block in the bowl"</p>
+                    <p class="mt-4 text-lg text-gray-300">Which block? Which bowl? The robot might get confused.</p>
+                </div>
+                <div class="p-6 bg-green-900/30 border-l-4 border-green-500 rounded text-left">
+                    <h3 class="font-bold text-2xl mb-2">Good Prompt</h3>
+                    <p class="text-2xl">"pick up the red cube and place it inside the blue bowl"</p>
+                    <p class="mt-4 text-lg text-gray-300">Unambiguous, specific, and uses clear action verbs.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold gradient-text mb-6">Example 2: Action & Goal Clarity</h2>
+            <p class="text-xl mb-4"><strong>Task:</strong> Move a can to the right side of the workspace.</p>
+            <div class="grid grid-cols-2 gap-8 w-full max-w-5xl">
+                <div class="p-6 bg-red-900/30 border-l-4 border-red-500 rounded text-left">
+                    <h3 class="font-bold text-2xl mb-2">Bad Prompt</h3>
+                    <p class="text-2xl">"move the can"</p>
+                    <p class="mt-4 text-lg text-gray-300">Move it where? How? This lacks a clear goal state.</p>
+                </div>
+                <div class="p-6 bg-green-900/30 border-l-4 border-green-500 rounded text-left">
+                    <h3 class="font-bold text-2xl mb-2">Good Prompt</h3>
+                    <p class="text-2xl">"push the soda can to the right side of the table"</p>
+                    <p class="mt-4 text-lg text-gray-300">Specifies the action ("push") and a clear destination.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold gradient-text mb-6">Advanced: Chain-of-Thought</h2>
+            <div class="content-box text-xl">
+                <p>For complex, multi-step tasks, giving a sequence of simpler instructions can improve performance.</p>
+                <div class="mt-6 bg-gray-800 p-6 rounded-lg">
+                    <p><strong>Task:</strong> Pick up a block, and then wave.</p>
+                    <p class="mt-4"><strong>Chained Prompts:</strong></p>
+                    <ol class="list-decimal mt-2">
+                        <li>`"pick up the green block"` (Wait for completion)</li>
+                        <li>`"wave your gripper from left to right"` (Execute second instruction)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9 -->
+        <div class="slide">
+            <h2 class="text-6xl font-bold gradient-text">Live Demo Time!</h2>
+            <p class="text-2xl mt-4 text-gray-300">We will now control a robot in real-time to see how different prompts affect its behavior.</p>
+        </div>
+
+        <!-- Slide 10 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">Let's Practice Writing Prompts</h2>
+            <div class="content-box text-2xl">
+                <p><strong>Task Description:</strong> "A toy car is on its side. Put it back on its wheels."</p>
+                <p class="text-xl mt-4 text-gray-300">Discuss: What would be a good prompt? A bad one?</p>
+                <div class="mt-6 p-4 bg-green-900/30 border-l-4 border-green-500 rounded">
+                    <p><strong>Example Good Prompt:</strong><br>"flip the blue toy car upright so it rests on its wheels"</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 11 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">How This Applies to the Hackathon</h2>
+             <ul class="text-2xl space-y-4 text-left max-w-3xl">
+                <li>✅ The official challenges will require you to solve tasks using natural language.</li>
+                <li>✅ Spending a few minutes refining your prompts will save hours of debugging.</li>
+                <li class="font-bold text-yellow-400">✅ A good prompt is as important as good code!</li>
+            </ul>
+        </div>
+        
+        <!-- Slide 12 -->
+        <div class="slide">
+            <h2 class="text-6xl font-bold gradient-text">Q&A</h2>
+            <p class="text-3xl mt-4 text-gray-300">Any questions about prompt engineering?</p>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation">
+            <div class="nav-button" id="prev">Prev</div>
+            <div class="slide-counter">1 / 12</div>
+            <div class="nav-button" id="next">Next</div>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        const slideCounter = document.querySelector('.slide-counter');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        function updateCounter() { slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`; }
+        function showSlide(index) { slides.forEach((slide, i) => slide.classList.toggle('active', i === index)); updateCounter(); }
+        function nextSlide() { currentSlide = (currentSlide + 1) % totalSlides; showSlide(currentSlide); }
+        function prevSlide() { currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; showSlide(currentSlide); }
+
+        nextButton.addEventListener('click', nextSlide);
+        prevButton.addEventListener('click', prevSlide);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        showSlide(currentSlide);
+    </script>
+</body>
+</html> 

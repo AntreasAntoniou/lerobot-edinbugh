@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop 4: Reinforcement Learning - LeRobot Edinburgh</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1a1a1a; color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+        .slide-container { width: 90%; height: 90%; max-width: 1200px; max-height: 800px; position: relative; border: 1px solid #333; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .slide { width: 100%; height: 100%; padding: 4rem; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: absolute; top: 0; left: 0; }
+        .slide.active { display: flex; }
+        .gradient-text { background: linear-gradient(135deg, #FFD21E 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .navigation { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; gap: 1rem; align-items: center; }
+        .nav-button { background-color: #333; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; user-select: none; transition: background-color 0.2s; }
+        .nav-button:hover { background-color: #444; }
+        .slide-counter { color: #888; }
+        ul, ol { list-style-position: inside; }
+        .content-box { text-align: left; width: 100%; max-width: 50rem; }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <h1 class="text-6xl font-bold gradient-text">Workshop 4: Learning from Experience</h1>
+            <p class="text-3xl mt-4 text-gray-300">Fine-tuning with Reinforcement Learning (HIL-SERL)</p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-8">What We'll Cover</h2>
+            <ul class="text-3xl space-y-4 text-left">
+                <li>➔ When Imitation Isn't Enough</li>
+                <li>➔ Intro to HIL-SERL: LeRobot's RL Workflow</li>
+                <li>➔ The Core RL Loop & The Reward Function</li>
+                <li>➔ The Actor-Learner Architecture</li>
+                <li>➔ Pro-Tips: Key Hyperparameters</li>
+                <li>➔ Capstone: The GR00T Recipe</li>
+            </ul>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">The Limits of Imitation</h2>
+            <div class="text-2xl max-w-4xl text-left space-y-4">
+                <p><strong>Problem:</strong> Your imitation-trained policy is good, but not perfect. It only knows what you showed it. It struggles with new situations and can't discover <em>better</em> ways to do the task.</p>
+                <p class="mt-6 p-4 bg-green-900/30 border-l-4 border-green-500 rounded">
+                    <strong>Solution:</strong> Reinforcement Learning (RL). Let the robot learn from its own trial-and-error to improve and perfect a skill.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Slide 4 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">LeRobot's RL Workflow: HIL-SERL</h2>
+            <p class="text-3xl mb-4"><strong>H</strong>uman-<strong>i</strong>n-the-<strong>L</strong>oop <strong>S</strong>ample-<strong>E</strong>fficient <strong>R</strong>einforcement <strong>L</strong>earning</p>
+            <p class="text-2xl max-w-4xl">It's a hybrid approach! We don't start from scratch. We use your imitation learning dataset as a starting point, and then a human (you!) can intervene during live training to guide the robot, making the process much faster and safer.</p>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">How a Robot *Really* Learns</h2>
+            <p class="text-2xl mb-4">The RL Loop:</p>
+            <ul class="text-2xl space-y-3 text-left max-w-2xl">
+                <li><strong class="text-yellow-400">Agent</strong> (the policy) takes an `Action`.</li>
+                <li>`Action` affects the <strong class="text-yellow-400">Environment</strong>.</li>
+                <li>Agent gets an `Observation` and a <strong class="text-yellow-400">Reward</strong>.</li>
+                <li>The loop repeats.</li>
+            </ul>
+            <p class="text-3xl mt-8 p-4 bg-yellow-900/30 border-l-4 border-yellow-400 rounded">
+                The <strong>Reward Function</strong> is how YOU define the goal.
+            </p>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold gradient-text mb-6">Anatomy of a Reward Function</h2>
+             <div class="grid grid-cols-2 gap-8 w-full max-w-5xl">
+                <div class="p-6 bg-red-900/30 border-l-4 border-red-500 rounded text-left">
+                    <h3 class="font-bold text-2xl mb-2">Sparse Reward</h3>
+                    <p class="text-xl">`return 1` if task is complete, `0` otherwise.</p>
+                    <p class="mt-4 text-lg text-gray-300">Like telling a child "you get a cookie if you clean your room" but giving no other instructions. The robot might never succeed.</p>
+                </div>
+                <div class="p-6 bg-green-900/30 border-l-4 border-green-500 rounded text-left">
+                    <h3 class="font-bold text-2xl mb-2">Dense Reward</h3>
+                    <p class="text-xl">`reward = -distance_to_cube`</p>
+                    <p class="mt-4 text-lg text-gray-300">Gives continuous feedback, guiding the robot effectively. "You're getting warmer!"</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 7 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">The Actor-Learner Architecture</h2>
+            <p class="text-2xl max-w-4xl mb-6">Training is split into two processes running at the same time:</p>
+            <div class="grid grid-cols-2 gap-8 w-full max-w-5xl">
+                <div class="text-left p-4 bg-gray-800 rounded-lg">
+                    <h3 class="text-2xl font-bold text-yellow-400">1. The Actor</h3>
+                    <ul class="list-disc ml-6 mt-2 text-lg">
+                        <li>Lives on the robot.</li>
+                        <li>Executes the policy, takes actions.</li>
+                        <li>You can interrupt it at any time!</li>
+                        <li>Sends experience to the Learner.</li>
+                    </ul>
+                </div>
+                <div class="text-left p-4 bg-gray-800 rounded-lg">
+                    <h3 class="text-2xl font-bold text-yellow-400">2. The Learner</h3>
+                     <ul class="list-disc ml-6 mt-2 text-lg">
+                        <li>Lives on a powerful GPU.</li>
+                        <li>Receives experience from the Actor.</li>
+                        <li>Updates the policy's network.</li>
+                        <li>Sends the improved policy back.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 8 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">Interactive Session: Reward Design</h2>
+            <div class="content-box text-2xl">
+                <p><strong>Task:</strong> Teach the robot to open a drawer.</p>
+                <p class="text-xl mt-4 text-gray-300">What are the components of a good reward?</p>
+                <div class="mt-6 text-left text-xl bg-gray-800 p-6 rounded-lg">
+                    <ul class="list-disc ml-6">
+                        <li>Reward for moving hand to handle.</li>
+                        <li>Reward for grasping handle.</li>
+                        <li>Reward for pulling in the correct direction.</li>
+                        <li>Big reward for the drawer being fully open.</li>
+                        <li>Small time penalty (to encourage efficiency).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold gradient-text mb-6">Pro-Tips for RL Training</h2>
+            <div class="content-box text-xl space-y-4">
+                <p class="text-xl mb-4">Three settings from the docs that have a big impact:</p>
+                <ul class="list-disc">
+                    <li><code class="text-lg bg-gray-700">temperature_init</code>: Controls exploration. <strong class="text-yellow-400">Tip:</strong> Start low (`1e-2`).</li>
+                    <li><code class="text-lg bg-gray-700">policy_parameters_push_frequency</code>: How often the Learner sends the new policy to the Actor. <strong class="text-yellow-400">Tip:</strong> `2-4` seconds is a good balance.</li>
+                    <li><code class="text-lg bg-gray-700">storage_device</code>: Where the Learner keeps the policy. <strong class="text-yellow-400">Tip:</strong> Set to `"cuda"` if you have enough GPU memory.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Slide 10 -->
+        <div class="slide">
+            <h2 class="text-5xl font-bold gradient-text mb-6">Capstone: The GR00T Recipe</h2>
+            <div class="content-box text-left text-xl">
+                <p class="mb-4"><strong>Source:</strong> 
+                    <a href="https://huggingface.co/papers/2503.14734" target="_blank" class="text-yellow-400 underline">GR00T Paper</a> & 
+                    <a href="https://huggingface.co/nvidia/GR00T-N1.5-3B" target="_blank" class="text-yellow-400 underline">Model Card</a>
+                </p>
+                <p><strong>What it is:</strong> An open foundation model for generalist humanoid robots.</p>
+                <p class="mt-4"><strong>The Recipe:</strong> GR00T uses the concepts you've learned today, but at massive scale:</p>
+                <ol class="list-decimal mt-2 space-y-2">
+                    <li><strong>Heterogeneous Data:</strong> Learns from real robot data, human videos, and synthetic data (advanced <strong>Imitation Learning</strong>).</li>
+                    <li><strong>Vision-Language Model:</strong> Understands instructions with a powerful VLM (like we did with <strong>Prompt Engineering</strong>).</li>
+                    <li><strong>Diffusion Transformer:</strong> Generates actions using an advanced policy, which is then fine-tuned (<strong>Reinforcement Learning</strong>).</li>
+                </ol>
+                <p class="mt-6 text-2xl p-4 bg-yellow-900/30 border-l-4 border-yellow-400 rounded text-center">
+                    The skills you're learning today are the building blocks for the frontier of robotics research.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Slide 11 -->
+        <div class="slide">
+            <h2 class="text-6xl font-bold gradient-text">Q&A</h2>
+            <p class="text-3xl mt-4 text-gray-300">Any questions about Reinforcement Learning?</p>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation">
+            <div class="nav-button" id="prev">Prev</div>
+            <div class="slide-counter">1 / 11</div>
+            <div class="nav-button" id="next">Next</div>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        const slideCounter = document.querySelector('.slide-counter');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        function updateCounter() { slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`; }
+        function showSlide(index) { slides.forEach((slide, i) => slide.classList.toggle('active', i === index)); updateCounter(); }
+        function nextSlide() { currentSlide = (currentSlide + 1) % totalSlides; showSlide(currentSlide); }
+        function prevSlide() { currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; showSlide(currentSlide); }
+
+        nextButton.addEventListener('click', nextSlide);
+        prevButton.addEventListener('click', prevSlide);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        showSlide(currentSlide);
+    </script>
+</body>
+</html> 
