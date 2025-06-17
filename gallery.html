@@ -253,7 +253,7 @@
 
             lightbox.classList.add('active');
 
-            if (galleryItem.dataset.type === 'video' || e.target.tagName === 'VIDEO') {
+            if (e.target.tagName === 'VIDEO' || galleryItem.querySelector('video')) {
                 const videoSource = galleryItem.querySelector('source').src;
                 lightboxImg.style.display = 'none';
                 lightboxVideo.style.display = 'block';
@@ -268,17 +268,9 @@
 
         if (galleryGrid1) galleryGrid1.addEventListener('click', handleGalleryClick);
         if (galleryGrid2) galleryGrid2.addEventListener('click', handleGalleryClick);
-
-        // Add event listeners for all video items
-        document.querySelectorAll('.gallery-item video').forEach(video => {
-            const parent = video.closest('.gallery-item');
-            parent.addEventListener('click', () => {
-                 const videoSource = parent.querySelector('source').src;
-                lightboxImg.style.display = 'none';
-                lightboxVideo.style.display = 'block';
-                lightboxVideo.src = videoSource;
-                lightbox.classList.add('active');
-            });
+        
+        document.querySelectorAll('.my-8.gallery-item').forEach(item => {
+            item.addEventListener('click', handleGalleryClick);
         });
 
         function closeLightbox() {

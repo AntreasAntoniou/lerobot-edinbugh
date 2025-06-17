@@ -495,30 +495,6 @@
             offset: 100
         });
 
-        // Countdown Timer
-        function updateCountdown() {
-            const hackathonDate = new Date('June 14, 2025 09:00:00 GMT+0100').getTime();
-            const now = new Date().getTime();
-            const distance = hackathonDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-
-            if (distance < 0) {
-                document.getElementById('countdown').innerHTML = '<div class="text-3xl font-bold gradient-text">The Hackathon has started!</div>';
-            }
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-
         // Particles.js configuration
         particlesJS('particles-js', {
             particles: {
