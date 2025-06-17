@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery & Stories - LeRobot Edinburgh Hackathon</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #FFD21E 0%, #FFA500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gallery-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-xl font-bold hover:text-yellow-400 transition">
+                    &larr; Back to Main Site
+                </a>
+                <a href="submissions.html" class="text-lg font-semibold hover:text-yellow-400 transition">
+                    View Submissions
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-24">
+        <h1 class="text-5xl md:text-6xl font-bold text-center gradient-text mt-12 mb-4">Gallery & Stories</h1>
+        <p class="text-center text-lg text-gray-400 mb-12">Reliving the best moments from our hackathon weekend.</p>
+
+        <!-- Story 1 -->
+        <div class="my-16 max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-yellow-400 mb-4">The Great Calibration Race</h2>
+            <p class="text-gray-300 text-lg">
+                On Saturday morning, the energy was electric as teams unboxed their SO-101 kits. A friendly, unspoken race began: who could be the first to successfully calibrate both arms? Team 'Robo-Rangers' took an early lead, but a classic port mix-up on the leader arm cost them valuable minutes, allowing 'The Bit-Builders' to clinch the first fully teleoperated movement of the day!
+            </p>
+        </div>
+
+        <!-- Photo Gallery -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            
+            <!-- Placeholder Images: Replace src with your image paths -->
+            <div class="gallery-item rounded-lg overflow-hidden">
+                <img src="https://placehold.co/600x400/1a1a1a/FFD21E?text=Photo+1" alt="Hackathon photo 1" class="w-full h-full object-cover">
+            </div>
+            <div class="gallery-item rounded-lg overflow-hidden">
+                <img src="https://placehold.co/600x400/1a1a1a/FFA500?text=Photo+2" alt="Hackathon photo 2" class="w-full h-full object-cover">
+            </div>
+            <div class="gallery-item rounded-lg overflow-hidden">
+                <img src="https://placehold.co/600x400/1a1a1a/FFFFFF?text=Photo+3" alt="Hackathon photo 3" class="w-full h-full object-cover">
+            </div>
+            <div class="gallery-item rounded-lg overflow-hidden">
+                <img src="https://placehold.co/600x400/1a1a1a/FFD21E?text=Photo+4" alt="Hackathon photo 4" class="w-full h-full object-cover">
+            </div>
+             <div class="md:col-span-2 gallery-item rounded-lg overflow-hidden">
+                <img src="https://placehold.co/1200x600/1a1a1a/FFA500?text=Wide+Photo" alt="Hackathon photo wide" class="w-full h-full object-cover">
+            </div>
+             <div class="gallery-item rounded-lg overflow-hidden">
+                <img src="https://placehold.co/600x400/1a1a1a/FFFFFF?text=Photo+5" alt="Hackathon photo 5" class="w-full h-full object-cover">
+            </div>
+             <div class="gallery-item rounded-lg overflow-hidden">
+                <img src="https://placehold.co/600x400/1a1a1a/FFD21E?text=Photo+6" alt="Hackathon photo 6" class="w-full h-full object-cover">
+            </div>
+
+        </div>
+
+        <!-- Story 2 -->
+        <div class="my-16 max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-yellow-400 mb-4">The SmolVLA Prompting Breakthrough</h2>
+            <p class="text-gray-300 text-lg">
+                After the prompt engineering workshop, there was a noticeable shift. Teams went from basic commands to crafting beautifully specific instructions. The "aha!" moment came when one team realized that telling the robot *what not to do* was as powerful as telling it what to do, using negative phrasing in their prompts to avoid common failure modes.
+            </p>
+        </div>
+        
+        <!-- More Photos -->
+         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="gallery-item rounded-lg overflow-hidden">
+                <img src="https://placehold.co/600x400/1a1a1a/FFA500?text=Photo+7" alt="Hackathon photo 7" class="w-full h-full object-cover">
+            </div>
+            <div class="gallery-item rounded-lg overflow-hidden">
+                <img src="https://placehold.co/600x400/1a1a1a/FFFFFF?text=Photo+8" alt="Hackathon photo 8" class="w-full h-full object-cover">
+            </div>
+             <div class="gallery-item rounded-lg overflow-hidden">
+                <img src="https://placehold.co/600x400/1a1a1a/FFD21E?text=Photo+9" alt="Hackathon photo 9" class="w-full h-full object-cover">
+            </div>
+             <div class="gallery-item rounded-lg overflow-hidden">
+                <img src="https://placehold.co/600x400/1a1a1a/FFA500?text=Photo+10" alt="Hackathon photo 10" class="w-full h-full object-cover">
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html> 
