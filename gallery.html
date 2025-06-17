@@ -27,10 +27,39 @@
         }
         .gallery-item {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
         }
         .gallery-item:hover {
             transform: scale(1.03);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        /* Lightbox Styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox-content {
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -64,32 +93,52 @@
             <p class="text-gray-300 text-lg mb-2"><strong>10:00am:</strong> The custom workshops begin, starting with the <a href="workshop_1_slides.html" class="text-yellow-400 underline">LeRobot Hardware and Software Package</a>.</p>
             <p class="text-gray-300 text-lg mb-2"><strong>10:30am - 12:00pm:</strong> The tinkering starts. At first hesitant, teams Aqua, White, and Orange slowly but surely get their SO-101 setups teleoperating and begin the journey of data collection. Meanwhile, Team Black faces their first trial by fire—a misconnected USB-C fries their follower board and the laptop's USB port. A tough lesson learned and issues filed on GitHub.</p>
         </div>
+        
+        <!-- Featured Video -->
+        <div class="my-8 rounded-lg overflow-hidden bg-black gallery-item">
+             <video controls autoplay muted loop class="w-full h-auto">
+                <source src="media/photos/IMG_2355.MOV" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
 
         <!-- Photo Gallery -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0174.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
+        <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="grid gap-4">
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0174.JPG" alt="Hackathon photo"></div>
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0177.JPG" alt="Hackathon photo"></div>
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0178.JPG" alt="Hackathon photo"></div>
             </div>
-            <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0177.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
+            <div class="grid gap-4">
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0179.JPG" alt="Hackathon photo"></div>
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0180.JPG" alt="Hackathon photo"></div>
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0189.JPG" alt="Hackathon photo"></div>
             </div>
-            <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0178.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
+            <div class="grid gap-4">
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0191.JPG" alt=""></div>
+                <div class="rounded-lg gallery-item bg-black flex justify-center items-center" data-type="video">
+                    <video muted loop class="max-w-full h-auto pointer-events-none">
+                        <source src="media/videos/IMG_2355-720p.mov" type="video/mp4">
+                    </video>
+                </div>
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0192.JPG" alt=""></div>
             </div>
-            <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0179.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
+            <div class="grid gap-4">
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0198.JPG" alt="Hackathon photo"></div>
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0199.JPG" alt="Hackathon photo"></div>
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0200.JPG" alt="Hackathon photo"></div>
             </div>
-            <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0180.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
+             <div class="grid gap-4">
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0201.JPG" alt="Hackathon photo"></div>
+             </div>
+             <div class="grid gap-4">
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0202.JPG" alt="Hackathon photo"></div>
             </div>
-             <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0189.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
+            <div class="grid gap-4">
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0203.JPG" alt="Hackathon photo"></div>
             </div>
-             <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0191.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
-            </div>
-             <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0192.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
+             <div class="grid gap-4">
+                <!-- Empty for balance -->
             </div>
         </div>
 
@@ -104,30 +153,18 @@
         </div>
         
         <!-- More Photos -->
-         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0198.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
+         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+             <div class="grid gap-4">
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0201.JPG" alt=""></div>
+             </div>
+             <div class="grid gap-4">
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0202.JPG" alt=""></div>
             </div>
-            <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0199.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
+            <div class="grid gap-4">
+                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0203.JPG" alt=""></div>
             </div>
-            <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0200.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
-            </div>
-            <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0201.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
-            </div>
-            <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0202.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
-            </div>
-            <div class="gallery-item rounded-lg overflow-hidden">
-                <img src="media/photos/5D3A0203.JPG" alt="Hackathon photo" class="w-full h-full object-cover">
-            </div>
-            <div class="md:col-span-2 gallery-item rounded-lg overflow-hidden bg-black flex justify-center items-center">
-                <video controls autoplay muted loop class="max-w-full max-h-full">
-                    <source src="media/photos/IMG_2355.MOV" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+             <div class="grid gap-4">
+                <!-- Empty for balance -->
             </div>
         </div>
         
@@ -143,5 +180,60 @@
 
     </main>
 
+    <!-- Lightbox Structure -->
+    <div id="lightbox" class="lightbox">
+        <span id="lightbox-close" class="lightbox-close">&times;</span>
+        <img id="lightbox-img" class="lightbox-content" src="" alt="Full screen image">
+        <video id="lightbox-video" class="lightbox-content" src="" controls autoplay></video>
+    </div>
+
+    <script>
+        const galleryGrid = document.getElementById('gallery-grid');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxVideo = document.getElementById('lightbox-video');
+        const lightboxClose = document.getElementById('lightbox-close');
+
+        galleryGrid.addEventListener('click', e => {
+            const galleryItem = e.target.closest('.gallery-item');
+            if (!galleryItem) return;
+
+            lightbox.classList.add('active');
+
+            if (galleryItem.dataset.type === 'video') {
+                const videoSource = galleryItem.querySelector('source').src;
+                lightboxImg.style.display = 'none';
+                lightboxVideo.style.display = 'block';
+                lightboxVideo.src = videoSource;
+            } else {
+                const imgSrc = galleryItem.src;
+                lightboxVideo.style.display = 'none';
+                lightboxImg.style.display = 'block';
+                lightboxImg.src = imgSrc;
+            }
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            lightboxVideo.pause();
+            lightboxVideo.currentTime = 0;
+            lightboxVideo.src = "";
+            lightboxImg.src = "";
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        
+        lightbox.addEventListener('click', e => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    </script>
 </body>
 </html> 
