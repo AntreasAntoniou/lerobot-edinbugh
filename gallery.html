@@ -113,23 +113,16 @@
             </video>
         </div>
 
-        <!-- Photo Gallery -->
-        <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            
+        <!-- Photo Gallery Day 1 -->
+        <div id="gallery-grid-1" class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0174.JPG" alt="Hackathon photo"></div>
             <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0177.JPG" alt="Hackathon photo"></div>
             <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0178.JPG" alt="Hackathon photo"></div>
             <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0179.JPG" alt="Hackathon photo"></div>
-            <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0203.JPG" alt="Hackathon photo"></div>
             <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0180.JPG" alt="Hackathon photo"></div>
             <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0189.JPG" alt="Hackathon photo"></div>
             <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0191.JPG" alt="Hackathon photo"></div>
             <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0192.JPG" alt="Hackathon photo"></div>
-            <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0198.JPG" alt="Hackathon photo"></div>
-            <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0199.JPG" alt="Hackathon photo"></div>
-            <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0200.JPG" alt="Hackathon photo"></div>
-            <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0201.JPG" alt="Hackathon photo"></div>
-            <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0202.JPG" alt="Hackathon photo"></div>
         </div>
 
         <!-- Story 2 -->
@@ -149,22 +142,6 @@
             </video>
         </div>
 
-        <!-- More Photos -->
-         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-             <div class="grid gap-4">
-                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0201.JPG" alt=""></div>
-             </div>
-             <div class="grid gap-4">
-                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0202.JPG" alt=""></div>
-            </div>
-            <div class="grid gap-4">
-                <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0203.JPG" alt=""></div>
-            </div>
-             <div class="grid gap-4">
-                <!-- Empty for balance -->
-            </div>
-        </div>
-        
         <!-- Story 3 -->
         <div class="my-16 max-w-4xl mx-auto text-left">
             <h2 class="text-3xl font-bold text-yellow-400 mb-4 text-center">Day 2: The Final Push</h2>
@@ -175,6 +152,15 @@
             <p class="text-gray-300 text-lg mb-2"><strong>17:15pm - 18:10pm:</strong> A whirlwind of activity. Teams register their official IDs, submit their videos and datasets, and then clean up the room with maximum efficiency. We barely made the submission deadline, let alone the cleanup. What a couple of days.</p>
         </div>
 
+        <!-- Photo Gallery Day 2 -->
+        <div id="gallery-grid-2" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0198.JPG" alt="Hackathon photo"></div>
+            <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0199.JPG" alt="Hackathon photo"></div>
+            <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0200.JPG" alt="Hackathon photo"></div>
+            <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0201.JPG" alt="Hackathon photo"></div>
+            <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0202.JPG" alt="Hackathon photo"></div>
+            <div><img class="h-auto max-w-full rounded-lg gallery-item" src="media/photos/5D3A0203.JPG" alt="Hackathon photo"></div>
+        </div>
     </main>
 
     <!-- Lightbox Structure -->
@@ -254,29 +240,45 @@
             retina_detect: true
         });
 
-        const galleryGrid = document.getElementById('gallery-grid');
+        const galleryGrid1 = document.getElementById('gallery-grid-1');
+        const galleryGrid2 = document.getElementById('gallery-grid-2');
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxVideo = document.getElementById('lightbox-video');
         const lightboxClose = document.getElementById('lightbox-close');
 
-        galleryGrid.addEventListener('click', e => {
+        function handleGalleryClick(e) {
             const galleryItem = e.target.closest('.gallery-item');
             if (!galleryItem) return;
 
             lightbox.classList.add('active');
 
-            if (galleryItem.dataset.type === 'video') {
+            if (galleryItem.dataset.type === 'video' || e.target.tagName === 'VIDEO') {
                 const videoSource = galleryItem.querySelector('source').src;
                 lightboxImg.style.display = 'none';
                 lightboxVideo.style.display = 'block';
                 lightboxVideo.src = videoSource;
             } else {
-                const imgSrc = galleryItem.src;
+                const imgSrc = e.target.src;
                 lightboxVideo.style.display = 'none';
                 lightboxImg.style.display = 'block';
                 lightboxImg.src = imgSrc;
             }
+        }
+
+        if (galleryGrid1) galleryGrid1.addEventListener('click', handleGalleryClick);
+        if (galleryGrid2) galleryGrid2.addEventListener('click', handleGalleryClick);
+
+        // Add event listeners for all video items
+        document.querySelectorAll('.gallery-item video').forEach(video => {
+            const parent = video.closest('.gallery-item');
+            parent.addEventListener('click', () => {
+                 const videoSource = parent.querySelector('source').src;
+                lightboxImg.style.display = 'none';
+                lightboxVideo.style.display = 'block';
+                lightboxVideo.src = videoSource;
+                lightbox.classList.add('active');
+            });
         });
 
         function closeLightbox() {
